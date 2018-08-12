@@ -1,0 +1,32 @@
+{
+    "name": "renauddouze/datetime_machine",
+    "description": "A PHP library to traval in \\DateTime",
+    "type": "library",
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {"RenaudDouze\\DateTimeMachine\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"RenaudDouze\\DateTimeMachine\\Test\\": "tests/"}
+    },
+    "authors": [
+        {
+            "name": "Renaud Douze",
+            "email": "renauddouze@gmail.com"
+        }
+    ],
+    "scripts": {
+        "lint": "parallel-lint src tests",
+        "phpunit": "phpunit --verbose --colors=always",
+        "phpcs": "phpcs src tests --standard=psr2 -sp --colors",
+        "test": [
+            "@lint",
+            "@phpunit",
+            "@phpcs"
+        ]
+    }
+}
