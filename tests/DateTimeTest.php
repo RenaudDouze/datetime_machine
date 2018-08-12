@@ -47,7 +47,7 @@ final class DateTimeTest extends TestCase
 		$this->assertEquals($machineDatetimeFirst->getTimestamp(), $vanillaDateTime->getTimestamp());
 
 		// var_dump('SECOND');
-		$machineDatetimeSecond = DateTime::construct();
+		$machineDatetimeSecond = DateTime::new();
 
 		// var_dump($machineDatetimeSecond->format('Ymd his'));
 		// var_dump($vanillaDateTime->format('Ymd his'));

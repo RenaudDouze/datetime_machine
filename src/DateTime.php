@@ -5,7 +5,7 @@ namespace RenaudDouze\DateTimeMachine;
 /**
  * 
  */
-class DateTime extends \DateTime
+class DateTime
 {
 	const SESSION_ITEMS_BAG = 'dmc_12';
 	const SESSION_CONFIG_BAG = 'deLorean';
@@ -41,50 +41,25 @@ class DateTime extends \DateTime
 
 	/**
 	 * Constructor
-	 *
-	 * @see \Datetime::__construct
-	 * 
-	 * @param string        $time     
-	 * @param \DateTimeZone $timezone 
-	 *
-	 * @throws \Exception See \Datetime::__construct
 	 */
-	public function __construct($time = 'now', \DateTimeZone $timezone = null)
+	public function __construct()
 	{
-		var_dump(parent::__construct($time, $timezone));
-		return parent::__construct($time, $timezone);
-
-		var_dump(__METHOD__);
-
-		// $new = parent::__construct($time, $timezone);
-		$new = new \DateTime($time, $timezone);
-		
-		var_dump($new);		
-
-		$interval = self::getInSession(self::CONFIG_INTERVAL, self::SESSION_CONFIG_BAG);
-		
-		var_dump($interval);		
-
-		if (null !== $interval && null !== $new) {
-			$new = $new->add($interval);	
-		}
-
-		var_dump($new);	
-
-		return $new;
+		throw new \RuntimeException("You can't instantiate an object. Use ::new() instead");
 	}
 
 	/**
 	 * Named constructor
 	 *
-	 * @see \Datetime::__construct
+	 * @see \Datetime::construct
 	 * 
 	 * @param string        $time     
 	 * @param \DateTimeZone $timezone 
 	 *
 	 * @throws \Exception See \Datetime::__construct
+	 *
+	 * @return DateTimeMachine
 	 */
-	public static function construct($time = 'now', \DateTimeZone $timezone = null)
+	public static function new($time = 'now', \DateTimeZone $timezone = null)
 	{
 		// var_dump(__METHOD__);
 
