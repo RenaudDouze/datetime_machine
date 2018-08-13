@@ -5,9 +5,8 @@ namespace RenaudDouze\DateTimeMachine;
 /**
  * 
  */
-class DateTimeMachine
+class DateTimeMachine implements DateTimeMachineInterface
 {
-	const SESSION_ITEMS_BAG = 'dmc_12';
 	const SESSION_CONFIG_BAG = 'deLorean';
 
 	const CONFIG_START_POINT = 'start_point';
@@ -25,17 +24,7 @@ class DateTimeMachine
 	}
 
 	/**
-	 * Travel through time.
-	 * Set the datetime machine to a destination in time.
-	 * 
-	 * @param string 		$destination Datetime format, see http://php.net/manual/fr/datetime.formats.php
-	 * @param \DateTimeZone $timezone 	 Destination timezone
-	 *
-	 * @return \DateTime The destination datetime 
-	 *
-	 * @see http://php.net/manual/fr/datetime.formats.php
-	 *
-	 * @throws \Exception See \Datetime::__construct
+	 * {@inheritdoc}
 	 */
 	public static function travel($destination, \DateTimeZone $timezone = null) 
 	{
@@ -53,16 +42,7 @@ class DateTimeMachine
 	}
 
 	/**
-	 * When are we, get the current datetime. Current for the datetime machine
-	 *
-	 * @see \Datetime::construct
-	 * 
-	 * @param string        $time     
-	 * @param \DateTimeZone $timezone 
-	 *
-	 * @return DateTimeMachine
-	 *
-	 * @throws \Exception See \Datetime::__construct
+	 * {@inheritdoc}
 	 */
 	public static function when($time = 'now', \DateTimeZone $timezone = null)
 	{
@@ -78,9 +58,7 @@ class DateTimeMachine
 	}
 
 	/**
-	 * Go back when the first travel begun 
-	 * 
-	 * @return \DateTime
+	 * {@inheritdoc}
 	 */
 	public static function goBack()
 	{
