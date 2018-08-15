@@ -3,10 +3,7 @@ build: ## Build the lib
 	composer install
 
 test: ## Launch all tests
-test: test_u5
-
-test_u7: ## Launch tests with phpunit 7
-	docker run -v $(PWD):/app --rm phpunit/phpunit:master tests/ --stderr
+test: test_u5 test_u6
 
 test_u6: ## Launch tests with phpunit 6
 	docker run -v $(PWD):/app --rm phpunit/phpunit:6.5.3 tests/ --stderr
