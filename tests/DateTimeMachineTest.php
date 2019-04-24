@@ -6,14 +6,14 @@ use PHPUnit\Framework\TestCase;
 use RenaudDouze\DateTimeMachine\DateTimeMachine;
 
 /**
- * 
+ *
  */
 final class DateTimeMachineTest extends TestCase
 {
 	/**
-	 * 
+	 * Test that the DateTimeMachine always return a \DateTime
 	 */
-	public function testBasics()
+	public function testReturnDatetime()
 	{
 		$machineDatetime = DateTimeMachine::when();
 
@@ -33,7 +33,7 @@ final class DateTimeMachineTest extends TestCase
 	/**/
 
 	/**
-	 * 
+	 * Test that time travel from now to now still get you to now
 	 */
 	public function testComparaisonsBasic()
 	{
@@ -55,11 +55,11 @@ final class DateTimeMachineTest extends TestCase
 	/**/
 
 	/**
-	 * 
+	 * Travel to a date and check that we are
 	 */
 	public function testWhenAreWe()
 	{
-		$vanillaDateTime = new \Datetime('October 25, 1985');	
+		$vanillaDateTime = new \Datetime('October 25, 1985');
 
 		$machineDatetimeFirst = DateTimeMachine::travel('October 25, 1985');
 
@@ -72,11 +72,11 @@ final class DateTimeMachineTest extends TestCase
 	/**/
 
 	/**
-	 * 
+	 *
 	 */
 	public function testWhen()
 	{
-		$vanillaDateTime = new \Datetime('October 25, 1985');	
+		$vanillaDateTime = new \Datetime('October 25, 1985');
 
 		$machineDatetimeFirst = DateTimeMachine::travel('October 25, 1985');
 
@@ -89,11 +89,11 @@ final class DateTimeMachineTest extends TestCase
 	/**/
 
 	/**
-	 * 
+	 *
 	 */
 	public function testATravelForNothing()
 	{
-		$vanillaDateTime = new \Datetime('October 25, 1985');	
+		$vanillaDateTime = new \Datetime('October 25, 1985');
 
 		$machineDatetimeFirst = DateTimeMachine::travel('October 25, 1985');
 
@@ -106,12 +106,12 @@ final class DateTimeMachineTest extends TestCase
 	/**/
 
 	/**
-	 * 
+	 *
 	 */
 	public function testGoBack()
 	{
 		$now = new \Datetime();
-		$vanillaDateTime = new \Datetime('October 25, 1985');	
+		$vanillaDateTime = new \Datetime('October 25, 1985');
 
 		$machineDatetimeFirst = DateTimeMachine::travel('October 25, 1985');
 
@@ -124,12 +124,12 @@ final class DateTimeMachineTest extends TestCase
 	/**/
 
 	/**
-	 * 
+	 *
 	 */
 	public function testWhenFirst()
 	{
 		$now = new \Datetime();
-		$vanillaDateTime = new \Datetime('October 25, 1985');	
+		$vanillaDateTime = new \Datetime('October 25, 1985');
 
 		$machineDatetimeFirst = DateTimeMachine::when();
 
