@@ -65,7 +65,7 @@ class DateTimeMachine implements DateTimeMachineInterface
     {
         $list = self::getInSession(self::TIME_LIST);
 
-        $nb = count($list);
+        $nb = (($list) ? count($list) : 0);
 
         // The last one in the list is the current time
         if (1 >= $nb) {

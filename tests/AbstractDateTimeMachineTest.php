@@ -17,6 +17,5 @@ abstract class AbstractDateTimeMachineTest extends TestCase
         if ('' !== session_id()) {
             session_reset();
         }
-
     }
 }

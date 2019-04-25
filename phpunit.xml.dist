@@ -3,8 +3,8 @@
          colors="true"
          backupGlobals="false">
     <testsuites>
-        <testsuite>
-            <directory>./tests</directory>
+        <testsuite name="My Test Suite">
+            <directory>/app/tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>
