@@ -9,9 +9,8 @@ class DateTimeMachine implements DateTimeMachineInterface
 {
     const SESSION_CONFIG_BAG = 'deLorean';
 
-    const CONFIG_START_POINT = 'start_point';
-    const CONFIG_INITIAL_DESTINATION = 'destination';
-    const CONFIG_INTERVAL = 'interval';
+    const CURRENT_INTERVAL = 'current_interval';
+    const TIME_LIST = 'time_list';
 
     /**
      * Constructor, Don't use it
@@ -30,13 +29,15 @@ class DateTimeMachine implements DateTimeMachineInterface
     {
         $new = self::when($destination, $timezone);
 
-        if (null == self::getInSession(self::CONFIG_INTERVAL)) {
-            $now = DateTimeMachine::getDateTime('now', $timezone);
+        $now = DateTimeMachine::getDateTime('now', $timezone);
+        self::setInSession(self::CURRENT_INTERVAL, $now->diff($new));
 
-            self::setInSession(self::CONFIG_START_POINT, $now);
-
-            self::setInSession(self::CONFIG_INTERVAL, $now->diff($new));
+        $list = self::getInSession(self::TIME_LIST);
+        if (empty($list)) {
+            $list[] = $now;
         }
+        $list[] = $new;
+        self::setInSession(self::TIME_LIST, $list);
 
         return $new;
     }
@@ -48,16 +49,11 @@ class DateTimeMachine implements DateTimeMachineInterface
     {
         $new = DateTimeMachine::getDateTime($time, $timezone);
 
-        // var_dump($time);
-        // var_dump($new);
-
-        $interval = self::getInSession(self::CONFIG_INTERVAL);
+        $interval = self::getInSession(self::CURRENT_INTERVAL);
 
         if (null !== $interval && null !== $new) {
             $new->add($interval);
         }
-
-        // var_dump($new);
 
         return $new;
     }
@@ -67,16 +63,18 @@ class DateTimeMachine implements DateTimeMachineInterface
      */
     public static function goBack()
     {
-        self::setInSession(self::CONFIG_INTERVAL, new \DateInterval('PT0S'));
+        $list = self::getInSession(self::TIME_LIST);
 
-        $start = self::getInSession(self::CONFIG_START_POINT);
+        $nb = count($list);
 
-        if (null === $start) {
+        // The last one in the list is the current time
+        if (1 >= $nb) {
             throw new \RunTimeException("You can't go back if you never left");
 
         }
 
-        return $start;
+        // We return not the last one, but the time before it
+        return $list[$nb - 2];
     }
 
     /**

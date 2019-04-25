@@ -82,17 +82,32 @@ final class DateTimeMachineTravelGoodTimeTest extends AbstractDateTimeMachineTes
      */
     public function testGoBack()
     {
-        $now = new \Datetime();
+        $now = new \DateTime();
+        DateTimeMachine::travel('1985-10-25 08:25');
 
-        $vanillaDateTime = new \Datetime('1985-10-25 08:25');
+        $machineDatetime = DateTimeMachine::goBack();
 
-        $dtmFirst = DateTimeMachine::travel('1985-10-25 08:25');
+        $this->assertEquals($machineDatetime->getTimestamp(), $now->getTimestamp());
+    }
 
-        $this->assertEquals($dtmFirst->getTimestamp(), $vanillaDateTime->getTimestamp());
+    /**
+     * Test the go back after many travel
+     */
+    public function testGoBackAfterManyTravel()
+    {
+        DateTimeMachine::travel('2018-01-01 10:00');
+        $dtmFirst = DateTimeMachine::travel('2016-01-01 10:00');
+        $dtmSecond = DateTimeMachine::travel('2017-01-01 10:00');
 
-        $dtmSecond = DateTimeMachine::goBack();
+        $dtmFirstBack = DateTimeMachine::goBack();
 
-        $this->assertEquals($dtmSecond->getTimestamp(), $now->getTimestamp());
+        $this->assertEquals($dtmFirst->getTimestamp(), $dtmFirstBack->getTimestamp());
+
+        DateTimeMachine::travel('2015-01-01 10:00');
+
+        $dtmSecondBack = DateTimeMachine::goBack();
+
+        $this->assertEquals($dtmSecond->getTimestamp(), $dtmSecondBack->getTimestamp());
     }
 
     /**
@@ -100,12 +115,10 @@ final class DateTimeMachineTravelGoodTimeTest extends AbstractDateTimeMachineTes
      */
     public function testWhenFirst()
     {
-        $now = new \Datetime();
         $vanillaDateTime = new \Datetime('1985-10-25 08:25');
 
         $dtmFirst = DateTimeMachine::when();
 
-        $this->assertEquals($dtmFirst->getTimestamp(), $now->getTimestamp());
         $this->assertNotEquals($dtmFirst->getTimestamp(), $vanillaDateTime->getTimestamp());
     }
 }
