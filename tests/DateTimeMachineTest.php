@@ -33,6 +33,58 @@ final class DateTimeMachineTest extends TestCase
     /**/
 
     /**
+     * Test corrects formats for the datetime machine
+     */
+    public function testCorrectFormats()
+    {
+        $this->assertEquals('DateTime', get_class(DateTimeMachine::travel('now')));
+
+        $this->assertEquals('DateTime', get_class(DateTimeMachine::travel('1985-10-25 08:25')));
+
+        $this->assertEquals('DateTime', get_class(DateTimeMachine::travel('1985-10-25 08:25:12')));
+    }
+
+    /**
+     * Test non corrects format for the datetime machine with a relative datetime
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNoncorrectFormatRelative()
+    {
+        DateTimeMachine::travel('yesterday');
+    }
+
+    /**
+     * Test non corrects format for the datetime machine with only the hours
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNoncorrectFormatOnlyHour()
+    {
+        DateTimeMachine::travel('1985-10-25 08');
+    }
+
+    /**
+     * Test non corrects format for the datetime machine with microseconds
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNoncorrectFormatWithMicroseconds()
+    {
+        DateTimeMachine::travel('1985-10-25 08:25:12.12345');
+    }
+
+    /**
+     * Test non corrects format for the datetime machine with french format
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNoncorrectFormatFrench()
+    {
+        DateTimeMachine::travel('25/10/1985 08:25:12');
+    }
+
+    /**
      * Test that time-travel from now to now still get you to now
      */
     public function testComparaisonsBasic()
@@ -59,9 +111,9 @@ final class DateTimeMachineTest extends TestCase
      */
     public function testWhenAreWe()
     {
-        $vanillaDateTime = new \Datetime('October 25, 1985');
+        $vanillaDateTime = new \Datetime('1985-10-25 08:25');
 
-        $dtmFirst = DateTimeMachine::travel('October 25, 1985');
+        $dtmFirst = DateTimeMachine::travel('1985-10-25 08:25');
 
         $this->assertEquals($dtmFirst->getTimestamp(), $vanillaDateTime->getTimestamp());
 
@@ -76,9 +128,9 @@ final class DateTimeMachineTest extends TestCase
      */
     public function testWhen()
     {
-        $vanillaDateTime = new \Datetime('October 25, 1985');
+        $vanillaDateTime = new \Datetime('1985-10-25 08:25');
 
-        $dtmFirst = DateTimeMachine::travel('October 25, 1985');
+        $dtmFirst = DateTimeMachine::travel('1985-10-25 08:25');
 
         $this->assertEquals($dtmFirst->getTimestamp(), $vanillaDateTime->getTimestamp());
 
@@ -93,9 +145,9 @@ final class DateTimeMachineTest extends TestCase
      */
     public function testATravelForNothing()
     {
-        $vanillaDateTime = new \Datetime('October 25, 1985');
+        $vanillaDateTime = new \Datetime('1985-10-25 08:25');
 
-        $dtmFirst = DateTimeMachine::travel('October 25, 1985');
+        $dtmFirst = DateTimeMachine::travel('1985-10-25 08:25');
 
         $this->assertEquals($dtmFirst->getTimestamp(), $vanillaDateTime->getTimestamp());
 
@@ -111,9 +163,9 @@ final class DateTimeMachineTest extends TestCase
     public function testGoBack()
     {
         $now = new \Datetime();
-        $vanillaDateTime = new \Datetime('October 25, 1985');
+        $vanillaDateTime = new \Datetime('1985-10-25 08:25');
 
-        $dtmFirst = DateTimeMachine::travel('October 25, 1985');
+        $dtmFirst = DateTimeMachine::travel('1985-10-25 08:25');
 
         $this->assertEquals($dtmFirst->getTimestamp(), $vanillaDateTime->getTimestamp());
 
@@ -129,7 +181,7 @@ final class DateTimeMachineTest extends TestCase
     public function testWhenFirst()
     {
         $now = new \Datetime();
-        $vanillaDateTime = new \Datetime('October 25, 1985');
+        $vanillaDateTime = new \Datetime('1985-10-25 08:25');
 
         $dtmFirst = DateTimeMachine::when();
 
