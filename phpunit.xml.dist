@@ -7,4 +7,9 @@
             <directory>/app/tests</directory>
         </testsuite>
     </testsuites>
+    <filter>
+      <whitelist processUncoveredFilesFromWhitelist="true">
+        <directory suffix=".php">/app/src</directory>
+      </whitelist>
+    </filter>
 </phpunit>

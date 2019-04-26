@@ -19,6 +19,13 @@ test_u5: ## Launch tests with phpunit 5
 	docker run -v $(PWD):/app --rm epcallan/php7-testing-phpunit:7.1-phpunit5 phpunit -c app/phpunit.xml.dist --stderr
 	docker run -v $(PWD):/app --rm epcallan/php7-testing-phpunit:7.2-phpunit5 phpunit -c app/phpunit.xml.dist --stderr
 
+coverage: ## Launch all coverages
+coverage: coverage_txt
+
+coverage_txt:
+	docker run -v $(PWD):/app --rm epcallan/php7-testing-phpunit:7.2-phpunit7 phpunit -c app/phpunit.xml.dist --stderr --coverage-text=app/coverage/report.txt
+	cat coverage/report.txt
+
 install: ## Install and start the project
 install: build
 
